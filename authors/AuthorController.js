@@ -1,6 +1,5 @@
 var express = require('express')
 var router = express.Router()
-var pool = require('../db')
 var AuthorRepo = require('../authors/AuthorRepo')
 
 
