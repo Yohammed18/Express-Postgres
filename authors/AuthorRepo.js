@@ -29,16 +29,15 @@ let AuthorRepo = {
 
         try {
             const result = await pool.query(sql, [id])
-            console.log(result.rowCount)
             return result.rowCount > 0;
         } catch (error) {
             throw error
         }
     },
 
-    create: async (name, age) =>{
-        const sql = `INSERT INTO AUTHOR (name, age) VALUES ($1,$2) RETURNING *`;
-        const pair = [name, age]
+    create: async (author) =>{
+        const sql = `INSERT INTO AUTHOR (id, name, age) VALUES ($1,$2, $3) RETURNING *`;
+        const pair = [author.id, author.name, author.age]
 
         try {
             const result = await pool.query(sql, pair)
@@ -46,7 +45,21 @@ let AuthorRepo = {
         } catch (error) {
             throw error
         }
+    },
+
+    update: async (id, authorUpdate) =>{
+        const sql = 'UPDATE AUTHOR SET NAME = $1, AGE = $2 WHERE ID = $3 RETURNING *'
+        const values = [authorUpdate.name, authorUpdate.age, id]
+
+        try{
+            const result = await pool.query(sql, values)
+            return result.rows[0]
+
+        }catch(err){
+            throw err
+        }
     }
+
     
 }
 

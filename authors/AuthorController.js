@@ -42,8 +42,7 @@ router.get('/authors', async (req, res)=>{
 })
 
 //get authors by id
-router.get('/author/:id', async (req, res)=>{
-    
+router.get('/author/:id', async (req, res)=>{   
     let authorId = req.params.id
 
     try {
@@ -78,19 +77,18 @@ router.get('/author/:id', async (req, res)=>{
     }
 })
 
+
+// delete by id
 router.delete('/delete/:id', async (req, res)=>{
     const authorId = req.params.id
 
     try {
         const deleted = await AuthorRepo.deleteById(authorId);
-
-        console.log('delete')
         if(deleted){
-            res.status(200).json({
-                code: 200,
+            res.status(204).json({
+                code: 204,
                 status: 'OK',
-                message: `Author with id ${authorId} has been deleted`,
-                data: deleted
+                message: `Author with id ${authorId} has been deleted`
             })
         }else{
             res.status(404).json({
@@ -115,7 +113,81 @@ router.delete('/delete/:id', async (req, res)=>{
 })
 
 
+// create author
+router.post('/create', async (req, res)=>{
 
+    try {
+        const id = req.body.id
+        const tempAuthor = await AuthorRepo.findById(id)
+
+        if(!tempAuthor){
+            let author = await AuthorRepo.create(req.body)
+            if(author){
+                res.status(201).json({
+                    code: 201,
+                    status: 'Author Created',
+                    message: 'A new Author has been added to the database.',
+                    data: author
+                })
+            }
+        }else {
+            res.status(409).json({
+                code: 409,
+                status: 'Conflict',
+                message: `Unable to create an Author with the following ID: '${id}'. Please assign another ID value.`,
+            })
+        }
+
+        
+    } catch (err) {
+        console.error(`Error executing query: ${err.stack}`)
+        res.status(500).json({
+            code: 500,
+            status: 'Internal server Error',
+            message: 'Error retrieving authors from table'
+        })
+    }
+})
+
+
+//update
+router.put('/update/:id', async (req, res) =>{
+    const authorId = req.params.id
+
+    try {
+        const author = await AuthorRepo.findById(authorId)
+
+        if(author){
+            const updateAuthor = await AuthorRepo.update(authorId, req.body)
+            res.status(204).json({
+                code: 204,
+                status: 'Update',
+                message: 'The author has been updated',
+                data: updateAuthor
+            })
+
+        }else {
+            res.status(404).json({
+                code: 404,
+                status: 'NOT FOUND',
+                message: `Unable to update an Author. The author with Id: '${id}' does not exist..`,
+                error: {
+                    code: 'NOT FOUND',
+                    message: `Unable to update an Author. The author with Id: '${id}' does not exist..`
+                }
+            })
+        }
+
+        
+    } catch (err) {
+        console.error(`Error executing query: ${err.stack}`)
+        res.status(500).json({
+            code: 500,
+            status: 'Internal server Error',
+            message: 'Error retrieving authors from table'
+        })
+    }
+})
 
 module.exports = router;
 
