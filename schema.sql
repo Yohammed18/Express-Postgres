@@ -21,6 +21,7 @@ CREATE TABLE "book" (
     CONSTRAINT "book_pkey" PRIMARY KEY ("isbn"),
     CONSTRAINT "fk_author" FOREIGN KEY ("author_id")
         REFERENCES "author"("id")
+        ON DELETE CASCADE
 );
 
 -- Insert data into author table
