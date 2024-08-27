@@ -31,7 +31,7 @@ router.post('/register', async(req, res) => {
         return res.status(201).json({
             code: 201,
             status: 'Create Success',
-            message: 'You have register has an Admin',
+            message: 'You have register has a new Admin',
             data: newAdmin
         })
 
