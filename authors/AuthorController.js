@@ -10,6 +10,7 @@ router.get('', (req, res)=>{
 
 // Get all authors
 router.get('/authors', verifyToken,async (req, res, next)=>{
+
     try {
         //query
         const authors = await AuthorRepo.findAll();

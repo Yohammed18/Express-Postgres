@@ -12,6 +12,15 @@ router.use(bodyParser.json())
 
 router.post('/register', async(req, res) => {
     const {name, email, password} = req.body
+
+    if(!name || !email || !password){
+        return res.status(409).json({
+            code: 409,
+            status: "Error",
+            message: `All entry must be field.`
+        })
+    }
+
     // create admin
     try {
         const admin = await AdminRepo.findAdmin(email)
@@ -59,7 +68,7 @@ router.post('/login', async (req, res) => {
                 message: `Invalid username`
             })
         }
-        
+
         const isAuthenticated = await bcrypt.compare(password, admin.password)
         
         if(isAuthenticated){

@@ -42,9 +42,9 @@ POST http://localhost:5000/auth/register
 Content-Type: application/json
 
 {
-    "name": "Smith",
-    "email": "Smith@admin.com",
-    "password": "Smith1@"
+    "name": "",
+    "email": "",
+    "password": ""
 }
 
 

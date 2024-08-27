@@ -24,7 +24,7 @@ verifyToken = (req, res, next) =>{
         }
 
          //save the request for use in outer routes
-         req.userId = decoded
+         req.user = decoded
          next();
     });   
 }
