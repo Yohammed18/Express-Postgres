@@ -59,7 +59,7 @@ router.post('/login', async (req, res) => {
                 message: `Invalid username`
             })
         }
-        console.log(`Password: ${password}`)
+        
         const isAuthenticated = await bcrypt.compare(password, admin.password)
         
         if(isAuthenticated){

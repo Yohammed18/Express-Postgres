@@ -4,12 +4,15 @@ x-access-token:
 
 ### get author by id
 GET http://localhost:5000/api/author/1
+x-access-token: 
 
 ### get error response when author with the provide id does not exist
 GET http://localhost:5000/api/author/11
+x-access-token: 
 
 ### create an author
 POST http://localhost:5000/api/create
+x-access-token: 
 Content-Type: application/json
 
 {
@@ -20,6 +23,7 @@ Content-Type: application/json
 
 ### update author
 PUT http://localhost:5000/api/update/11
+x-access-token: 
 Content-Type: application/json
 
 {
@@ -29,7 +33,7 @@ Content-Type: application/json
 
 ### delete author
 DELETE http://localhost:5000/api/delete/11
-
+x-access-token: 
 
 
 ### ADMIN 

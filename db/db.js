@@ -34,7 +34,7 @@ const testConnection = async ()=>{
 }
 
 // run test 
-testConnection()
+//testConnection()
 
 
 // export the pool to be used by other controllers to perform queries
