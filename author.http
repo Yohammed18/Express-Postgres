@@ -1,5 +1,6 @@
 ### get all the authors in the database
 GET http://localhost:5000/api/authors
+x-access-token: 
 
 ### get author by id
 GET http://localhost:5000/api/author/1
@@ -28,3 +29,26 @@ Content-Type: application/json
 
 ### delete author
 DELETE http://localhost:5000/api/delete/11
+
+
+
+### ADMIN 
+### Create a new admin
+POST http://localhost:5000/auth/register
+Content-Type: application/json
+
+{
+    "name": "Smith",
+    "email": "Smith@admin.com",
+    "password": "Smith1@"
+}
+
+
+###
+POST http://localhost:5000/auth/login
+Content-Type: application/json
+
+{
+    "email": "Smith@admin.com",
+    "password": "Smith1@"
+}

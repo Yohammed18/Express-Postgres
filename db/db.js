@@ -1,6 +1,7 @@
 const { Pool } = require('pg')
 const fs = require('fs')
-const schemaPath = './schema.sql'
+const path = require('path')
+const schemaPath = path.join(__dirname, '../db/schema.sql')
 //check for new changes
 
 // Pool Initialization: 

@@ -1,6 +1,7 @@
 var express = require('express')
 var router = express.Router()
 var AuthorRepo = require('../authors/AuthorRepo')
+var verifyToken = require('../auth/VerifyToken')
 
 
 router.get('', (req, res)=>{
@@ -8,7 +9,7 @@ router.get('', (req, res)=>{
 })
 
 // Get all authors
-router.get('/authors', async (req, res)=>{
+router.get('/authors', verifyToken,async (req, res, next)=>{
     try {
         //query
         const authors = await AuthorRepo.findAll();
@@ -42,7 +43,7 @@ router.get('/authors', async (req, res)=>{
 })
 
 //get authors by id
-router.get('/author/:id', async (req, res)=>{   
+router.get('/author/:id', verifyToken, async (req, res)=>{   
     let authorId = req.params.id
 
     try {
@@ -72,14 +73,13 @@ router.get('/author/:id', async (req, res)=>{
             code: 500,
             status: `Internal Server Error.`,
             message: `Error retrieiving author(s).`
-        })
-        
+        })     
     }
 })
 
 
 // delete by id
-router.delete('/delete/:id', async (req, res)=>{
+router.delete('/delete/:id', verifyToken, async (req, res)=>{
     const authorId = req.params.id
 
     try {
@@ -114,7 +114,7 @@ router.delete('/delete/:id', async (req, res)=>{
 
 
 // create author
-router.post('/create', async (req, res)=>{
+router.post('/create', verifyToken, async (req, res)=>{
 
     try {
         const id = req.body.id
@@ -151,7 +151,7 @@ router.post('/create', async (req, res)=>{
 
 
 //update
-router.put('/update/:id', async (req, res) =>{
+router.put('/update/:id', verifyToken, async (req, res) =>{
     const authorId = req.params.id
 
     try {
@@ -176,9 +176,7 @@ router.put('/update/:id', async (req, res) =>{
                     message: `Unable to update an Author. The author with Id: '${id}' does not exist..`
                 }
             })
-        }
-
-        
+        }        
     } catch (err) {
         console.error(`Error executing query: ${err.stack}`)
         res.status(500).json({

@@ -1,4 +1,4 @@
-const pool = require("../db")
+const pool = require("../db/db")
 
 let AuthorRepo = {
 
@@ -59,8 +59,6 @@ let AuthorRepo = {
             throw err
         }
     }
-
-    
 }
 
 

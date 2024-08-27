@@ -1,9 +1,11 @@
 -- Drop existing tables if they exist
 DROP TABLE IF EXISTS "book";
 DROP TABLE IF EXISTS "author";
+DROP TABLE IF EXISTS "admin";
 
 -- Create sequences for auto-increment
 CREATE SEQUENCE IF NOT EXISTS author_id_seq;
+CREATE SEQUENCE IF NOT EXISTS admin_id_seq;
 
 -- Create author table
 CREATE TABLE "author" (
@@ -22,6 +24,15 @@ CREATE TABLE "book" (
     CONSTRAINT "fk_author" FOREIGN KEY ("author_id")
         REFERENCES "author"("id")
         ON DELETE CASCADE
+);
+
+-- Create an admin table
+CREATE TABLE "admin" (
+    "id" bigint DEFAULT nextval('admin_id_seq') NOT NULL,
+    "name" text,
+    "email" text,
+    "password" text,
+    CONSTRAINT "admin_pkey" PRIMARY KEY ("id")
 );
 
 -- Insert data into author table
