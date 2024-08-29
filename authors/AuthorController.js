@@ -3,13 +3,12 @@ var router = express.Router()
 var AuthorRepo = require('../authors/AuthorRepo')
 var verifyToken = require('../auth/VerifyToken')
 
-
 router.get('', (req, res)=>{
     res.status(200).send("<h1>Welcome to the Author & Book Store</h1>")
 })
 
 // Get all authors
-router.get('/authors', verifyToken,async (req, res, next)=>{
+router.get('/authors', async (req, res, next)=>{
 
     try {
         //query
